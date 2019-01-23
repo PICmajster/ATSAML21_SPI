@@ -1,3 +1,21 @@
+/***************************************************************************
+  FileName:        main.c
+  Processor:       ATSAML21G18B
+  IDE :            SEGGER ver 4.12
+  Created by:      http://strefapic.blogspot.com
+ ***************************************************************************/
+/*------------------------------------------------------------------*/
+/* SPI configuration and sending a character A                      */
+/*------------------------------------------------------------------*/
+//      
+//    Reqired connections :
+//     - SCK   - PA05 
+//     - MISO  - PA06 
+//     - MOSI  - PA04
+//     - CS    - not used
+//     - LED   - PB11
+//
+//***************************************************************************
 #include <stdio.h>
 #include <stdlib.h>
 #include <saml21.h>
@@ -8,7 +26,7 @@ void main(void) {
 SystemInit();
 /*Set pin PB11 direction to Output*/
 PORT->Group[1].DIRSET.reg |= PORT_PB11;
-
+/*Start SPI configuration*/
 /*GENCTRLn1 --> SRC --> 0x6  / ustaw źródło zegara Generatora nr 1 na OSC16M*/
 GCLK->GENCTRL[1].bit.SRC = GCLK_GENCTRL_SRC_OSC16M_Val;
 /*GENCTRLn1 --> GENEN --> 1  / włącz Generator nr 1*/
@@ -55,6 +73,7 @@ SERCOM0->SPI.BAUD.reg = 0; //for Baud = 0 --> f max = F Core / 2
 SERCOM0->SPI.CTRLA.bit.ENABLE = 1;
 /*wait for synchro*/
 while(SERCOM0->SPI.SYNCBUSY.bit.ENABLE);
+/*End  SPI configuration*/
 
 /* Set SysTick */
 SysTick_Config(4000000 * 0.1); //0.1s, 4MHz core clock  
@@ -68,7 +87,7 @@ SysTick_Config(4000000 * 0.1); //0.1s, 4MHz core clock
 
 /* Routime Interrupt */
  __attribute__((interrupt)) void SysTick_Handler(void){
-     SERCOM0->SPI.DATA.reg = 65; //literka A
+     SERCOM0->SPI.DATA.reg = 65; //send character A
      /*wait for transfer complete*/
      while(SERCOM0->SPI.INTFLAG.bit.TXC);
      /*LED toggle pin PB11*/
