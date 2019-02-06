@@ -46,11 +46,11 @@ PORT->Group[0].PINCFG[5].bit.PMUXEN = 1;
 /*PORTA --> PINCFG6 --> PMUXEN --> 1 / podłącz pin PA06 do modułu PMUX*/
 PORT->Group[0].PINCFG[6].bit.PMUXEN = 1;
 
-/*PORTA --> PMUX2 --> PMUXO --> 0x2 / podłącz pin PA05 (nieparzysty pin) do modułu SERCOM0 (literka D)*/
+/*PORTA --> PMUX2 --> PMUXO --> 0x3 / podłącz pin PA05 (nieparzysty pin) do modułu SERCOM0 (literka D)*/
 PORT->Group[0].PMUX[2].bit.PMUXO = 0x3;
-/*PORTA --> PMUX2 --> PMUXE --> 0x2 / podłącz pin PA04 (parzysty pin) do modułu SERCOM0 (literka D)*/
+/*PORTA --> PMUX2 --> PMUXE --> 0x3 / podłącz pin PA04 (parzysty pin) do modułu SERCOM0 (literka D)*/
 PORT->Group[0].PMUX[2].bit.PMUXE = 0x3;
-/*PORTA --> PMUX3 --> PMUXE --> 0x2 / podłącz pin PA06 (parzysty pin) do modułu SERCOM0 (literka D)*/
+/*PORTA --> PMUX3 --> PMUXE --> 0x3 / podłącz pin PA06 (parzysty pin) do modułu SERCOM0 (literka D)*/
 PORT->Group[0].PMUX[3].bit.PMUXE = 0x3;
 
 /*CTRLA --> ENABLE --> 0 / wyłącz SPI na czas konfiguracji*/
