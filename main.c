@@ -89,7 +89,7 @@ SysTick_Config(4000000 * 0.1); //0.1s, 4MHz core clock
  __attribute__((interrupt)) void SysTick_Handler(void){
      SERCOM0->SPI.DATA.reg = 65; //send character A
      /*wait for transfer complete*/
-     while(SERCOM0->SPI.INTFLAG.bit.TXC);
+     while(!SERCOM0->SPI.INTFLAG.bit.TXC);
      /*LED toggle pin PB11*/
      PORT->Group[1].OUTTGL.reg |= PORT_PB11;
 }
