@@ -25,7 +25,7 @@ void main(void) {
  /* Initialize the SAM system */
 SystemInit();
 /*Set pin PB11 direction to Output*/
-PORT->Group[1].DIRSET.reg |= PORT_PB11;
+PORT->Group[1].DIRSET.reg = PORT_PB11;
 /*Start SPI configuration*/
 /*GENCTRLn1 --> SRC --> 0x6  / ustaw źródło zegara Generatora nr 1 na OSC16M*/
 GCLK->GENCTRL[1].bit.SRC = GCLK_GENCTRL_SRC_OSC16M_Val;
@@ -91,5 +91,5 @@ SysTick_Config(4000000 * 0.1); //0.1s, 4MHz core clock
      /*wait for transfer complete*/
      while(!SERCOM0->SPI.INTFLAG.bit.TXC);
      /*LED toggle pin PB11*/
-     PORT->Group[1].OUTTGL.reg |= PORT_PB11;
+     PORT->Group[1].OUTTGL.reg = PORT_PB11;
 }
